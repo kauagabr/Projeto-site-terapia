@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: sans-serif;
+    background: #4c8cac url(Imagens/rede-de-wireframe-geometria-abstrata-azul-turva-e-ponto-de-conexao-no-espaco-no-fundo_10307-1160.jpg) no-repeat;
+    background-size: 100% 100%;
+    font-size: 1.5em;
+    color: #161917;
+    margin-top: 2%;
+    justify-content: center;
+}
+
+
+#titulo {
+    color: #161917;
+    text-align: center;
+}
+
+
+#subtitulo {
+    color: #161917;
+    text-align: center;
+}
+
+
+fieldset {
+    border: 0;
+}
+
+
+input, select, textarea, button {
+    border-radius: 5px;
+}
+
+
+.campo {
+    margin-bottom: 1em;
+}
+
+
+.campo label {
+    margin-bottom: 0.2em;
+    color: #161917;
+    display: block;
+}
+
+
+fieldset.grupo .campo {
+    float: left;
+    margin-right: 1em;
+}
+
+
+.campo input[type="text"], .campo input[type="email"], .campo select, .campo textarea {
+    padding: 0.2em;
+    border: 1px solid #161917;
+    box-shadow: 2px 2px rgb(0, 0, 0, 0.2);
+    display: block;
+}
+
+
+.campo select option {
+    padding-right: 1em;
+}
+
+
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+    background: #e0e0f8;
+}
+
+
+.botao {
+    font-size: 1.2em;
+    background: #e9f0c9;
+    border: 0;
+    margin-bottom: 1em;
+    color: #161917;
+    padding: 0.2em 0.6em;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    
+}
+
+
+.botao:hover {
+    background: #ccbb;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+}
+
+
+#container {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    width: 480px;
+    height: 1000px;
+    background: rgba(247, 245, 245, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+#botaoo{
+    margin-top: 20px;
+    text-align: center;
+}
+
+#grupo_1{
+    margin: 0 auto;
+}
+
+
+
