@@ -17,7 +17,7 @@
           </div>
      
      
-          <form>
+          <form id="formulario-depoimento">
             <div id="grupo_1">
                 <fieldset class="grupo">
                     <div class="campo">
@@ -48,19 +48,19 @@
             <div class="campo">
               <label><strong>Selecione o tratamento que você fez: </strong></label>
               <label>
-                  <input type="radio" name="devweb" value="Medula_Espinhal"> Lesões na Medula Espinhal
+                  <input type="radio" name="tipo_terapia" value="Medula_Espinhal"> Lesões na Medula Espinhal
               </label>
               <label>
-                  <input type="radio" name="devweb" value="Doenças_Cardiacas"> Doenças Cardíacas
+                  <input type="radio" name="tipo_terapia" value="Doenças_Cardiacas"> Doenças Cardíacas
               </label>
               <label>
-                  <input type="radio" name="devweb" value="Diabetes_Tipo_1"> Diabetes tipo-1
+                  <input type="radio" name="tipo_terapia" value="Diabetes_Tipo_1"> Diabetes tipo-1
               </label>
               <label>
-                  <input type="radio" name="devweb" value="Problemas_Oculares"> Problemas Oculares
+                  <input type="radio" name="tipo_terapia" value="Problemas_Oculares"> Problemas Oculares
               </label>
               <label>
-                  <input type="radio" name="devweb" value="Cancer_de_Pulmão"> Câncer de Pulmão
+                  <input type="radio" name="tipo_terapia" value="Cancer_de_Pulmão"> Câncer de Pulmão
               </label>
             </div>
      
@@ -69,28 +69,67 @@
                   <br>
                   <label><strong>Faça um breve comentário sobre seu tratamento:</strong></label>
                   <textarea row="6" style="width: 98%; height: 14em;" id="tratamento" name="tratamento" required></textarea>
-     
+                  <br>
+                  <center>
+                    <button class="botao" type="submit"><a style="text-decoration: none;" href="condicoes-de-tratamento.html">Enviar Depoimento</a></button>
+                  </center>
+                  
+                  
+                  
+                  <!--
+                    <div id="botaoo">
+                      <button class="botao" name="concluido" type="submit"><a style="text-decoration: none;" href="condicoes-de-tratamento.html">Concluido</a></button>
+                  </div>
+                  -->
+                    
               </div>
 
 
-              <div id="botaoo">
-                <a href="condicoes-de-tratamento.html"><button class="botao" type="submit">Concluído</button></a>
-              </div>
+              
             </div>
-           
-           
-     
-           
-     
+
+            
            
           </form>
     </div>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('formulario-depoimento').addEventListener('submit', function (event) {
+        event.preventDefault();
 
-   
+        const nome = document.getElementById('nome').value;
+        const sobrenome = document.getElementById('sobrenome').value;
+        const email = document.getElementById('email').value;
+        const tipoTerapia = document.querySelector('input[name="tipo_terapia"]:checked').value;
+        const tratamento = document.getElementById('tratamento').value;
 
+        const novoDepoimento = {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          tratamento: tratamento,
+          tipo_terapia: tipoTerapia     
+        };
 
-
-
+        fetch('http://200.133.17.234:5000/terapia_depoimentos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(novoDepoimento),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Novo depoimento adicionado:', data);
+            alert('Depoimento adicionado com sucesso!');
+          })
+          .catch(error => {
+            console.error('Erro ao adicionar novo depoimento:', error);
+            alert('Erro ao adicionar depoimento. Tente novamente.');
+          });
+      });
+    });
+    </script>
 </body>
 </html>

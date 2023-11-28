@@ -127,37 +127,9 @@
               <h3>Histórias de Pacientes que Encontraram Esperança</h3>
               <p>A terapia com células-tronco tem oferecido resultados promissores para muitos pacientes ao redor do mundo. Vamos dar uma olhada em algumas histórias inspiradoras de pessoas que encontraram esperança e melhora em sua qualidade de vida através desses tratamentos inovadores:</p>
               <br>
-              <ol>
-                <li>Recuperação Surpreendente após Lesão na Medula Espinhal</li>
-                <ul>
-                  <li>Paciente: Ana L.</li>
-                  <li>Ana sofreu uma lesão traumática na medula espinhal em um acidente de carro. Após a terapia com células-tronco, ela experimentou uma notável recuperação da função motora e sensorial. Hoje, ela caminha com o auxílio de dispositivos de mobilidade e compartilha sua história de superação.</li>
-                </ul>
-                <br>
-                <li>Controle Glicêmico Melhorado em Paciente com Diabetes Tipo 1</li>
-                <ul>
-                  <li>Paciente: Carlos M.</li>
-                  <li>Carlos foi diagnosticado com diabetes tipo 1 em uma idade jovem e dependia de injeções diárias de insulina. Após a terapia com células-tronco, seu pâncreas começou a produzir insulina de forma mais eficiente. Agora, ele mantém níveis glicêmicos mais estáveis e tem uma vida ativa.</li>
-                </ul>
-                <br>
-                <li>Visão Restaurada em Caso de Degeneração Macular</li>
-                <ul>
-                  <li>Paciente: Maria S.</li>
-                  <li>Maria sofria de degeneração macular, uma condição que ameaçava sua visão. Após o tratamento com células-tronco, ela experimentou uma melhora significativa em sua visão. Hoje, ela desfruta de uma vida mais independente e gratificante.</li>
-                </ul>
-                <br>
-                <li>Recuperação Rápida após Cirurgia de Câncer de Pulmão</li>
-                <ul>
-                  <li>Paciente: João C.</li>
-                  <li>João passou por uma cirurgia para tratar o câncer de pulmão. A terapia com células-tronco foi usada como parte de seu plano de recuperação. Ele se recuperou mais rapidamente e com menos complicações pós-operatórias, o que o deixou mais forte para enfrentar sua jornada de cura.</li>
-                </ul>
-                <br>
-                <li>Redução na Dependência de Medicamentos para Doença Cardíaca</li>
-                <ul>
-                  <li>Paciente: Laura R.</li>
-                  <li>Laura lutou contra uma doença cardíaca crônica que a obrigava a tomar vários medicamentos diariamente. Após a terapia com células-tronco, sua função cardíaca melhorou significativamente, permitindo que ela reduzisse a quantidade de medicamentos. Agora, ela se sente mais energética e saudável.</li>
-                </ul>
-              </ol>
+              <div id="depoimentos-lista">
+                
+              </div>
               <br>
               <p>
                 Essas histórias destacam os benefícios e a esperança que a terapia com células-tronco trouxe para pacientes com uma variedade de condições médicas. Cada caso é uma demonstração de como a medicina regenerativa está mudando vidas e oferecendo novas perspectivas de tratamento.
@@ -186,7 +158,62 @@
         </main>
         
 
+        <script>
+          async function obterDepoimentos() {
+            try {
+              const response = await fetch('http://200.133.17.234:5000/terapia_depoimentos');
+              const depoimentosPorTipo = await response.json();
+              return depoimentosPorTipo;
+            } catch (error) {
+              console.error('Erro ao obter depoimentos:', error);
+              return {};
+            }
+          }
+        
+          async function exibirDepoimentos() {
+            const depoimentosPorTipo = await obterDepoimentos();
+            const containerDepoimentos = document.getElementById('depoimentos-lista');
+        
+            if (!depoimentosPorTipo || Object.keys(depoimentosPorTipo).length === 0) {
+              containerDepoimentos.innerHTML = '<p>Nenhum depoimento disponível no momento.</p>';
+              return;
+            }
+        
+            const listaDepoimentos = document.createElement('ul');
+        
+            // Iterar sobre cada tipo de tratamento
+            for (const tipo in depoimentosPorTipo) {
+              const depoimentos = depoimentosPorTipo[tipo];
+        
+              // Iterar sobre cada depoimento do tipo
+              depoimentos.forEach((depoimento, index) => {
+                const itemLista = document.createElement('li');
+                const subLista = document.createElement('ul');
+        
+                const pacienteItem = document.createElement('li');
+                pacienteItem.textContent = `Paciente: ${depoimento.nome} ${depoimento.sobrenome}`;
+        
+                const historiaItem = document.createElement('li');
+                historiaItem.textContent = depoimento.tratamento;
+        
+                subLista.appendChild(pacienteItem);
+                subLista.appendChild(historiaItem);
+        
+                itemLista.textContent = `${index + 1}. ${tipo}`;
+                itemLista.appendChild(subLista);
+        
+                listaDepoimentos.appendChild(itemLista);
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+              });
+
+              const hrElement = document.createElement('hr');
+              listaDepoimentos.appendChild(hrElement);
+            }
+        
+            containerDepoimentos.appendChild(listaDepoimentos);
+          }
+        
+          document.addEventListener('DOMContentLoaded', exibirDepoimentos);
+        </script>
     </body>
 </html>
